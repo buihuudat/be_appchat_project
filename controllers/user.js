@@ -35,4 +35,13 @@ module.exports = {
       .then((data) => res.status(200).json(data))
       .catch((err) => res.status(500).json(err));
   },
+
+  delete: (req, res) => {
+    co(function* () {
+      const user = yield User.findByIdAndDelete(req.body._id);
+      return user;
+    })
+      .then(() => res.status(200).json({ message: "deleted user" }))
+      .catch((err) => res.status(500).json(err));
+  },
 };
